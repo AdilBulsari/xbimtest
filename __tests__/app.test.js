@@ -27,9 +27,18 @@ describe("app tests", () => {
         expect(body).toEqual(data);
       });
   });
-  test("Status 400 /api/rooms/:id invalid id", () => {
+  test("Status 400 /api/rooms/:invalid id", () => {
     return request(app)
-      .get("/api/rooms/s1")
+      .get("/api/rooms/not-an-id")
+      .expect(400)
+      .then(({ body }) => {
+        expect(body.message).toEqual("id does not exist / invalid id");
+      });
+  });
+
+  test("Status 400 /api/rooms/:invalid-id/furnitures ", () => {
+    return request(app)
+      .get("/api/rooms/not-an-id/furnitures")
       .expect(400)
       .then(({ body }) => {
         expect(body.message).toEqual("id does not exist / invalid id");

@@ -25,13 +25,18 @@ app.get("/api/rooms/:id", (req, res, next) => {
 
 app.get("/api/rooms/:id/furnitures", (req, res, next) => {
   const { id } = req.params;
+  const id_number = Number(id);
+  if (isNaN(id_number)) {
+    res.status(400).send({ message: "id does not exist / invalid id" });
+  }
+
   const data = rooms.filter((room) => room.id === Number(id));
 
   res.status(200).send({ furnitures: data[0].furnitures });
 });
 
 app.use("*", (err, req, res, next) => {
-  res.status(500).send({ msg: "does not exist" });
+  res.status(500).send({ msg: "Server Error" });
 });
 
 app.listen(9000, () => {
