@@ -14,10 +14,11 @@ app.get("/api/rooms", (req, res, next) => {
 
 app.get("/api/rooms/:id", (req, res, next) => {
   const { id } = req.params;
-  const id_number = id;
-  if (typeof id_number !== "number") {
-    res.status(500).send({ message: "does not exist" });
+  const id_number = Number(id);
+  if (isNaN(id_number)) {
+    res.status(400).send({ message: "id does not exist / invalid id" });
   }
+
   const data = rooms.filter((room) => room.id === id_number);
   res.status(200).send(data);
 });

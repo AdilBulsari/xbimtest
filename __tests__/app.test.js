@@ -27,6 +27,14 @@ describe("app tests", () => {
         expect(body).toEqual(data);
       });
   });
+  test("Status 400 /api/rooms/:id invalid id", () => {
+    return request(app)
+      .get("/api/rooms/s1")
+      .expect(400)
+      .then(({ body }) => {
+        expect(body.message).toEqual("id does not exist / invalid id");
+      });
+  });
 
   test("GET /api/rooms/:id/furnitures return furnitures for room", () => {
     const data = {
