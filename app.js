@@ -20,7 +20,7 @@ app.get("/api/rooms/:id", (req, res, next) => {
   }
   const data = rooms.filter((room) => room.id === id_number);
   if (data.length === 0) {
-    res.status(200).send({ message: `id with ${id_number} not present` });
+    res.status(200).send({ message: `room with id ${id_number} not present` });
   }
   res.status(200).send(data);
 });
@@ -34,7 +34,7 @@ app.get("/api/rooms/:id/furnitures", (req, res, next) => {
 
   const data = rooms.filter((room) => room.id === Number(id));
   if (data.length === 0) {
-    res.status(200).send({ message: `id with ${id_number} not present` });
+    res.status(200).send({ message: `room with id ${id_number} not present` });
   }
   res.status(200).send({ furnitures: data[0].furnitures });
 });
