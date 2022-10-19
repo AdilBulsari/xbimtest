@@ -18,7 +18,6 @@ app.get("/api/rooms/:id", (req, res, next) => {
   if (isNaN(id_number)) {
     res.status(400).send({ message: "id does not exist / invalid id" });
   }
-
   const data = rooms.filter((room) => room.id === id_number);
   res.status(200).send(data);
 });
@@ -35,9 +34,7 @@ app.get("/api/rooms/:id/furnitures", (req, res, next) => {
   res.status(200).send({ furnitures: data[0].furnitures });
 });
 
-app.use("*", (err, req, res, next) => {
-  res.status(500).send({ msg: "Server Error" });
-});
+app.use((req, res) => res.status(404).send("Route does not exist"));
 
 app.listen(9000, () => {
   console.log("connected");
