@@ -19,6 +19,9 @@ app.get("/api/rooms/:id", (req, res, next) => {
     res.status(400).send({ message: "id does not exist / invalid id" });
   }
   const data = rooms.filter((room) => room.id === id_number);
+  if (data.length === 0) {
+    res.status(200).send({ message: `id with ${id_number} not present` });
+  }
   res.status(200).send(data);
 });
 
@@ -30,11 +33,15 @@ app.get("/api/rooms/:id/furnitures", (req, res, next) => {
   }
 
   const data = rooms.filter((room) => room.id === Number(id));
-
+  if (data.length === 0) {
+    res.status(200).send({ message: `id with ${id_number} not present` });
+  }
   res.status(200).send({ furnitures: data[0].furnitures });
 });
 
-app.use((req, res) => res.status(404).send("Route does not exist"));
+app.use((req, res) =>
+  res.status(404).send({ message: "Route does not exist" })
+);
 
 app.listen(9000, () => {
   console.log("connected");
